@@ -255,7 +255,10 @@ h1 em, h2 em { font-style: italic; color: var(--brand-pop); font-weight: 500 }
 .frame-sequence-sticky {
   position: sticky; top: 0; height: 100svh; min-height: 620px;
   overflow: hidden; isolation: isolate;
-  background: var(--stage, #d0c7bd);
+  /* Ricalca la sfumatura del fondale dei fotogrammi (campionata agli angoli:
+     #d8d0c5 in alto a sinistra, #c1b8b0 in basso a destra), così i bordi
+     scoperti quando il prodotto è rimpicciolito non creano uno stacco. */
+  background: linear-gradient(135deg, #d8d0c5, var(--stage) 45%, #c1b8b0);
 }
 .frame-sequence-canvas {
   position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; display: block;

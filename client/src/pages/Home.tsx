@@ -34,6 +34,12 @@ const loadBatchSize = 24;
  * ma il peso scaricato si divide per N. Metti 1 per usarli tutti.
  */
 const frameStride = 2;
+/**
+ * Quanto rimpicciolire il prodotto su schermi stretti. I fotogrammi sono 16:9:
+ * riempire un telefono verticale in "cover" ritaglia moltissimo e sembra troppo
+ * ingrandito. 1 = come prima (riempie tutto), più basso = più lontano.
+ */
+const mobileZoom = 0.8;
 
 const moods = [
   ["01", "1 · BASE", "Scegli lo yogurt", "Fresco, proteico o senza lattosio. La pausa parte esattamente da come la vuoi."],
@@ -102,11 +108,14 @@ function FrameSequenceHero() {
       // I frame hanno un fondale studio proprio (non sono ritagli trasparenti):
       // riempiono il palco a tutto schermo, spostati per lasciare respiro alla copy.
       const mobile = width < 860;
-      const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight);
+      const cover = Math.max(width / image.naturalWidth, height / image.naturalHeight);
+      // Su mobile si allontana un po': il fondo che resta scoperto è dello stesso
+      // tono del fondale dei fotogrammi (--stage), quindi non si nota lo stacco.
+      const scale = mobile ? cover * mobileZoom : cover;
       const drawWidth = image.naturalWidth * scale;
       const drawHeight = image.naturalHeight * scale;
       const centerX = mobile ? width * 0.5 : width * 0.58;
-      const centerY = mobile ? height * 0.42 : height * 0.5;
+      const centerY = mobile ? height * 0.44 : height * 0.5;
       context.drawImage(image, centerX - drawWidth / 2, centerY - drawHeight / 2, drawWidth, drawHeight);
     };
 

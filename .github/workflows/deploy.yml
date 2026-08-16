@@ -38,8 +38,8 @@ jobs:
           PUBLIC_DEPLOY: "1"
         run: pnpm exec vite build
 
-      - uses: actions/configure-pages@v5
-
+      # Niente actions/configure-pages: serve solo a ricavare base_url/base_path,
+      # che qui sono fissi (/dolceyo/), e falliva bloccando tutto il deploy.
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/public

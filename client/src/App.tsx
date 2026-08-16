@@ -1,20 +1,29 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Router as WouterRouter, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 
+/**
+ * Su GitHub Pages il sito è servito da /dolceyo/, quindi il percorso del browser
+ * è "/dolceyo/" e non "/": senza dire al router da dove parte, la rotta "/" non
+ * combacia e la pagina cade sul 404 interno. In sviluppo BASE_URL è "/" e la base
+ * risulta stringa vuota, cioè il comportamento di prima.
+ */
+const routerBase = import.meta.env.BASE_URL.replace(/\/+$/, "");
 
 function Router() {
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
+    <WouterRouter base={routerBase}>
+      <Switch>
+        <Route path={"/"} component={Home} />
+        <Route path={"/404"} component={NotFound} />
+        {/* Final fallback route */}
+        <Route component={NotFound} />
+      </Switch>
+    </WouterRouter>
   );
 }
 

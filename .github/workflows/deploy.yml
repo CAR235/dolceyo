@@ -21,9 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Nessun `version:` qui: package.json ha gia "packageManager": "pnpm@10.4.1",
+      # e indicarla in due posti fa fallire l'action con ERR_PNPM_BAD_PM_VERSION.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10.4.1
 
       - uses: actions/setup-node@v4
         with:

@@ -1,0 +1,70 @@
+# Todo — Dolceyo sito e pacchetto Connexa
+
+- [x] Copiare e pubblicare il logo ufficiale fornito dall’utente negli asset web del progetto.
+- [x] Caricare il logo su storage web e configurarlo per header e favicon.
+- [x] Generare le immagini hero e di supporto coerenti con il logo viola e verde lime.
+- [x] Sviluppare landing page mobile-first con menu, format, delivery e contatti reali.
+- [x] Creare mockup dei post usando il logo ufficiale e prodotti coerenti con Dolceyo.
+- [x] Verificare accessibilità, link e resa desktop/mobile.
+- [ ] Salvare checkpoint e consegnare sito e materiali commerciali.
+- [x] Definire il frame iniziale e il frame finale dello yogurt Dolceyo, con finale composto dinamicamente.
+- [x] Costruire gli elementi intermedi di crema, frutta e crunch come livelli animati e reversibili.
+- [x] Costruire la scena sticky con avanzamento guidato dallo scroll.
+- [x] Verificare desktop, mobile e preferenza di riduzione del movimento.
+- [ ] Generare un frame hero iniziale e un frame finale dello stesso prodotto Dolceyo.
+- [ ] Verificare identica inquadratura, luce e posizione dei due frame per l’interpolazione esterna.
+- [ ] Copiare, numerare e predisporre i frame hero forniti dall’utente.
+- [x] Verificare formato trasparente, inquadratura e continuità dei frame forniti.
+- [ ] Sostituire la composizione concettuale con la sequenza reale controllata dallo scroll.
+- [ ] Verificare fluidità, ordine della sequenza e fallback responsive.
+- [x] Verificare fluidità, ordine della sequenza e fallback responsive.
+- [x] Verificare visualmente il loader e il frame scontornato della hero Canvas.
+- [ ] Inventariare tutti i frame PNG caricati e predisporre un manifest ordinato.
+- [x] Inventariare tutti i frame PNG caricati e predisporre un manifest ordinato.
+- [ ] Caricare i frame nello storage web persistente del progetto.
+- [ ] Implementare preload progressivo, Canvas e ScrollTrigger con scrub 0.5.
+- [ ] Sostituire la hero statica con la sequenza 3D e validare il caricamento.
+- [ ] Ripristinare la hero Dolceyo precedente alla sequenza Canvas.
+- [ ] Eliminare la modifica dei frame e gli asset Canvas dalla landing principale.
+- [ ] Consegnare soltanto un file HTML Canvas essenziale separato, se confermato dall’utente.
+- [ ] Generare un video hero di cinque secondi usando i frame iniziale e finale forniti.
+- [ ] Verificare che la camera resti fissa e che prodotto e topping non si deformino.
+- [x] Estrarre l’archivio caricato e confermare il numero, il formato e l’ordine dei frame.
+- [x] Creare un MP4 hero dalla sequenza verificata, evitando Canvas e controlli di scroll.
+- [x] Controllare durata, dimensioni e riproducibilità del file finale.
+- [x] Sostituire l’attuale hero Canvas con la sequenza scroll-triggered dei 300 frame appena caricati.
+- [x] Precaricare in modo progressivo i frame necessari e associare lo scroll al frame corretto.
+- [x] Definire una hero pulita: prodotto grande, testo minimo, nessun loader invasivo e nessun effetto superfluo.
+- [x] Verificare l’animazione su desktop e una soluzione stabile su mobile.
+- [x] Rimuovere dalla sezione hero tutti i testi, CTA, indicatori e elementi grafici sovrapposti.
+- [x] Aggiornare il mapping scroll-frame senza inerzia, affinché il prodotto risponda durante ogni movimento di scroll.
+- [x] Verificare che l’animazione pura resti reattiva su desktop e mobile.
+- [x] Potenziare la scena hero mantenendo il prodotto come unico soggetto visibile.
+- [x] Collegare luce, profondità e scala del prodotto al progresso di scroll senza introdurre inerzia.
+- [x] Verificare il nuovo impatto visivo su desktop e mobile.
+- [x] Ripristinare una hero editoriale completa prima della sezione animata.
+- [x] Rendere la sequenza scroll una sezione autonoma, senza elementi sovrapposti e senza inquadratura tagliata.
+- [x] Ridurre il vuoto percepito nella composizione della sezione animata su desktop e mobile.
+- [x] Nascondere la barra di navigazione quando l’utente scorre verso il basso e farla riapparire risalendo.
+- [x] Verificare la transizione della barra su desktop e mobile.
+- [x] Ridurre la scala del prodotto nella sezione scroll per evitare crop e respiro insufficiente.
+- [x] Allungare la sezione scroll e assicurare che frame 300 sia raggiungibile prima dell’uscita dalla scena.
+- [x] Verificare desktop e mobile con inizio e finale della sequenza interamente visibili.
+- [x] Rimuovere il fondale dai 300 frame della sequenza mantenendo bicchiere e topping integri.
+- [x] Pubblicare il manifest dei frame trasparenti per la hero scroll-triggered.
+- [x] Trasferire nella hero e nella sezione scroll il viola pieno, il lime acceso e il panna del locale.
+- [x] Verificare la nuova scena sia su desktop sia su mobile.
+- [x] Sostituire il fondale viola della sequenza scroll con uno sfondo bianco/panna pulito.
+- [x] Verificare su desktop e mobile che il bicchiere isolato risalti subito durante lo scroll.
+- [x] Inserire richiami visivi a bubble waffle e bubble tea nel cerchio hero accanto allo yogurt.
+- [x] Aggiungere animazioni di ingresso, fluttuazione e hover alla hero e ai pulsanti.
+- [x] Aggiungere reveal leggeri alle sezioni principali rispettando la preferenza di riduzione del movimento.
+- [x] Verificare il nuovo ritmo visivo su desktop e mobile.
+- [x] Includere una pagina HTML autonoma con Canvas, CSS e JavaScript della sequenza.
+- [x] Implementare preload progressivo, Canvas e ScrollTrigger con scrub 0.5.
+- [x] Sostituire la hero statica con la sequenza 3D e validare il caricamento.
+- [ ] Rimuovere il checkerboard incorporato nei 300 PNG mantenendo il prodotto integro.
+- [x] Validare la rimozione del checkerboard su un frame di prova.
+- [ ] Pubblicare nuovamente i frame corretti e aggiornare il manifest della hero.
+- [x] Rimuovere il checkerboard incorporato nei 300 PNG mantenendo il prodotto integro.
+- [x] Pubblicare nuovamente i frame corretti e aggiornare il manifest della hero.

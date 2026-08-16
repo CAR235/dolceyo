@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dolceyo — Canvas Rotation</title>
+    <style>
+      :root { color-scheme: light; --cream:#fffaf1; --ink:#2b2025; --raspberry:#cf3155; }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; min-height: 500vh; background: var(--cream); color: var(--ink); font-family: Arial, sans-serif; }
+      #sequence { height: 500vh; position: relative; }
+      #sticky { position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden; background: radial-gradient(circle at 16% 74%, rgba(207,49,85,.13), transparent 24%), var(--cream); }
+      canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity .4s ease; }
+      canvas.ready { opacity: 1; }
+      #loader { position: absolute; left: 50%; top: 50%; width: min(76vw, 300px); transform: translate(-50%,-50%); text-align: center; transition: opacity .3s ease; }
+      #loader.done { opacity: 0; pointer-events: none; }
+      #loader strong { display: block; font: 600 clamp(28px, 4vw, 48px)/1 Georgia, serif; letter-spacing: -.06em; }
+      #loader small { display: block; margin-top: 14px; font-size: 10px; font-weight: 700; letter-spacing: .16em; }
+      .track { display: block; height: 3px; margin-top: 16px; background: rgba(43,32,37,.16); overflow: hidden; }
+      .track i { display: block; width: 100%; height: 100%; transform: scaleX(0); transform-origin: left; background: var(--raspberry); transition: transform .1s linear; }
+      .copy { position: absolute; z-index: 2; left: clamp(24px,6vw,110px); top: 50%; width: min(44vw, 590px); transform: translateY(-50%); pointer-events: none; }
+      .copy p { margin: 0 0 18px; color: var(--raspberry); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+      .copy h1 { margin: 0; font: 600 clamp(48px,6vw,102px)/.9 Georgia, serif; letter-spacing: -.07em; }
+      .copy h1 em { color: var(--raspberry); font-weight: 500; }
+      .hint { position: absolute; right: clamp(24px,5vw,72px); bottom: clamp(22px,4vw,58px); z-index: 2; color: #716675; font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+      @media (max-width: 720px) { body,#sequence { min-height: 360vh; height: 360vh; }.copy { top: 16%; left: 24px; width: calc(100% - 48px); transform: none; }.copy h1 { font-size: clamp(46px,13vw,70px); }.hint { right: 24px; bottom: 24px; } }
+    </style>
+  </head>
+  <body>
+    <section id="sequence">
+      <div id="sticky">
+        <canvas id="canvas" aria-label="Rotazione 3D del prodotto Dolceyo"></canvas>
+        <div id="loader" aria-live="polite"><strong>Loading… <span id="percent">0</span>%</strong><span class="track"><i id="bar"></i></span><small>PREPARIAMO 300 FRAME</small></div>
+        <div class="copy"><p>Yogurteria & dessert bar · Sarno</p><h1>La pausa dolce,<br><em>a modo tuo.</em></h1></div>
+        <div class="hint">Scorri per ruotare</div>
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script>
+      const MANIFEST_URL = "/manus-storage/dolceyo-rotation-clean-manifest_04822ccd.json";
+      const canvas = document.getElementById("canvas");
+      const context = canvas.getContext("2d");
+      const loader = document.getElementById("loader");
+      const percent = document.getElementById("percent");
+      const bar = document.getElementById("bar");
+      const sequence = document.getElementById("sequence");
+      const images = [];
+      let currentFrame = 0;
+      let request = 0;
+
+      function render(index) {
+        const image = images[index] || images[0];
+        if (!image || !image.naturalWidth) return;
+        currentFrame = index;
+        cancelAnimationFrame(request);
+        request = requestAnimationFrame(() => {
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          const width = canvas.clientWidth;
+          const height = canvas.clientHeight;
+          if (canvas.width !== Math.floor(width * dpr) || canvas.height !== Math.floor(height * dpr)) { canvas.width = Math.floor(width * dpr); canvas.height = Math.floor(height * dpr); }
+          context.setTransform(dpr, 0, 0, dpr, 0, 0);
+          context.clearRect(0, 0, width, height);
+          const scale = Math.min(width / image.naturalWidth, height / image.naturalHeight);
+          const drawWidth = image.naturalWidth * scale;
+          const drawHeight = image.naturalHeight * scale;
+          const drawTop = width < 720 ? height * 0.67 - drawHeight / 2 : (height - drawHeight) / 2;
+          context.drawImage(image, (width - drawWidth) / 2, drawTop, drawWidth, drawHeight);
+        });
+      }
+
+      async function init() {
+        const sources = await fetch(MANIFEST_URL).then(response => response.json());
+        let loaded = 0;
+        await Promise.all(sources.map((source, index) => new Promise(resolve => {
+          const image = new Image();
+          image.decoding = "async";
+          image.onload = image.onerror = () => { images[index] = image; loaded += 1; const value = Math.round((loaded / sources.length) * 100); percent.textContent = value; bar.style.transform = `scaleX(${value / 100})`; resolve(); };
+          image.src = source;
+        })));
+        render(0);
+        canvas.classList.add("ready");
+        loader.classList.add("done");
+        gsap.registerPlugin(ScrollTrigger);
+        const playhead = { frame: 0 };
+        gsap.to(playhead, { frame: images.length - 1, ease: "none", scrollTrigger: { trigger: sequence, start: "top top", end: "bottom bottom", scrub: 0.5 }, onUpdate: () => render(Math.round(playhead.frame)) });
+        window.addEventListener("resize", () => render(currentFrame));
+      }
+      init().catch(() => { loader.innerHTML = "<strong>Impossibile caricare la sequenza.</strong>"; });
+    </script>
+  </body>
+</html>

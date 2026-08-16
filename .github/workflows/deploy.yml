@@ -38,8 +38,13 @@ jobs:
           PUBLIC_DEPLOY: "1"
         run: pnpm exec vite build
 
-      # Niente actions/configure-pages: serve solo a ricavare base_url/base_path,
-      # che qui sono fissi (/dolceyo/), e falliva bloccando tutto il deploy.
+      # enablement: true attiva Pages e ne imposta la sorgente su GitHub Actions
+      # via API, usando il permesso `pages: write`. Senza questo, se Pages risulta
+      # disattivato il passo finale deploy-pages fallisce con "Not Found".
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/public
